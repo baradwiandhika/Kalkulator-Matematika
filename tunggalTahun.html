@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Bunga Tunggal Per Bulan</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #6b1e41;
+            margin: 0;
+            display: flex;
+            flex-direction: row;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+
+        .logo {
+            font-size: 3rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: bold;
+            padding: 1rem;
+            text-transform: lowercase;
+            position: relative;
+            display: inline-block;
+            color: #ffffff;
+            background: linear-gradient(90deg, rgb(208, 3, 3), rgb(185, 85, 85), #78B7D0, #55679C, #41B3A2, rgb(159, 62, 228), violet);
+            background-size: 400%;
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: animateRGB 8s ease infinite;
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+
+        @keyframes animateRGB {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .navbar {
+            color: rgb(0, 0, 0);
+            width: 200px;
+            padding: 20px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            right: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background-color: #70183f;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .navbar ul li {
+            margin: 15px 0;
+        }
+
+        .navbar ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            display: block;
+            padding: 8px;
+        }
+
+        .navbar ul li a:hover {
+            color: #fc76b3;
+            border-bottom: 3px solid #fc76b3;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            margin-right: 220px;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #ffffff;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input {
+            margin-bottom: 15px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #6b1e41;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="#" class="logo">Barr</a>
+
+    <div class="navbar">
+        <ul>
+            <li><a href="index.html">Bunga Tunggal /Tahun</a></li>
+            <li><a href="majemuk.html">Bunga Majemuk /Tahun</a></li>
+            <li><a href="tunggalTahun.html">Bunga Tunggal /Bulan</a></li>
+            <li><a href="majemukTahun.html">Bunga Majemuk /Bulan</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <h2>Kalkulator</h2>
+        <div class="container">
+            <h1> Bunga Tunggal </h1>
+            <form id="bungaForm">
+                <label for="jumlah">Jumlah Pinjaman (Rp):</label>
+                <input type="number" id="jumlah" name="jumlah" required>
+
+                <label for="sukuBunga">Suku Bunga (% per bulan):</label>
+                <input type="number" id="sukuBunga" name="sukuBunga" required>
+
+                <label for="waktu">Lama Meminjam (bulan):</label>
+                <input type="number" id="waktu" name="waktu" required>
+
+                <button type="submit">Hitung</button>
+            </form>
+
+            <div id="hasil"></div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('bungaForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            let jumlah = parseFloat(document.getElementById('jumlah').value);
+            let sukuBunga = parseFloat(document.getElementById('sukuBunga').value) / 100;
+            let lamaMeminjamBulan = parseFloat(document.getElementById('waktu').value);
+
+            let bunga = lamaMeminjamBulan * sukuBunga * jumlah;
+            let total = jumlah + bunga;
+
+            function formatRupiah(angka) {
+                return angka.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
+            }
+
+            document.getElementById('hasil').innerHTML = `
+                <p>Bunga yang dihasilkan: ${formatRupiah(bunga)}</p>
+                <p>Total setelah ${lamaMeminjamBulan} bulan: ${formatRupiah(total)}</p>
+            `;
+        });
+    </script>
+</body>
+
+</html>
